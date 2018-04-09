@@ -21,7 +21,7 @@ public class Order {
     @PrimaryKey
     private long id;
 
-    @ColumnInfo(name = "date")
+    @ColumnInfo
     private Date date;
 
 //    @ColumnInfo(name="items")

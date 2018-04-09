@@ -1,6 +1,8 @@
 package matthew.inventoryapp.show;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Date;
 
@@ -10,12 +12,16 @@ import java.util.Date;
 @Entity(tableName = "show")
 public class Show {
 
+    @PrimaryKey
     private long id;
 
+    @ColumnInfo
     private String name;
 
+    @ColumnInfo(name = "start_date")
     private Date startdate;
 
+    @ColumnInfo(name = "end_date")
     private Date endDate;
 
 }

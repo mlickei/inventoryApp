@@ -18,7 +18,7 @@ public class Item {
     @ColumnInfo(name="search_id")
     private String searchId;
 
-    @ColumnInfo(name="name")
+    @ColumnInfo
     private String name;
 
     @ColumnInfo(name="sell_price")
