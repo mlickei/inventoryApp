@@ -13,7 +13,7 @@ import matthew.inventoryapp.tax.TaxInfo;
 /**
  * Created by Matthew on 4/9/2018.
  */
-@Database(entities = {Item.class, Order.class, OrderItems.class, Show.class, TaxInfo.class}, version = 0)
+@Database(entities = {Item.class, Order.class, OrderItems.class, Show.class, TaxInfo.class}, version = 1)
 @TypeConverters({DateTypeConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
