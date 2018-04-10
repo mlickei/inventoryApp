@@ -1,4 +1,4 @@
-package matthew.inventoryapp
+package matthew.inventoryapp.activity
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 
 import kotlinx.android.synthetic.main.activity_add_items.*
+import matthew.inventoryapp.R
 
 class AddItemsActivity : AppCompatActivity() {
 
