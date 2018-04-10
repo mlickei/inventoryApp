@@ -2,8 +2,8 @@ package matthew.inventoryapp.order;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.Relation;
 
 import java.util.Date;
 import java.util.List;
@@ -24,14 +24,23 @@ public class Order {
     @ColumnInfo
     private Date date;
 
-//    @ColumnInfo(name="items")
-//    private List<Item> items; TODO CREATE A POJO
+    @ColumnInfo(name="order_items_id")
+    private long orderItemsId;
 
-//    @ColumnInfo(name = "show")
-//    private Show show; TODO CREATE A POJO
+    @Ignore
+    private List<Item> items;
 
-//    @ColumnInfo(name = "tax_info")
-//    private TaxInfo taxInfo; TODO CREATE A POJO
+    @ColumnInfo(name = "show_id")
+    private long showId;
+
+    @Ignore
+    private Show show;
+
+    @ColumnInfo(name = "tax_info_id")
+    private long taxInfoId;
+
+    @Ignore
+    private TaxInfo taxInfo;
 
     @ColumnInfo(name = "pre_tax_price")
     private double preTaxPrice;
@@ -42,8 +51,11 @@ public class Order {
     @ColumnInfo(name = "final_price_charged")
     private double finalPriceCharged;
 
-//    @ColumnInfo(name = "order_type")
-//    private OrderType orderType; TODO CREATE A POJO
+    @ColumnInfo(name = "order_type_name")
+    private String orderTypeName;
+
+    @Ignore
+    private OrderType orderType;
 
     public long getId() {
         return id;
@@ -60,30 +72,6 @@ public class Order {
     public void setDate(Date date) {
         this.date = date;
     }
-
-//    public List<Item> getItems() {
-//        return items;
-//    }
-//
-//    public void setItems(List<Item> items) {
-//        this.items = items;
-//    }
-//
-//    public Show getShow() {
-//        return show;
-//    }
-//
-//    public void setShow(Show show) {
-//        this.show = show;
-//    }
-//
-//    public TaxInfo getTaxInfo() {
-//        return taxInfo;
-//    }
-//
-//    public void setTaxInfo(TaxInfo taxInfo) {
-//        this.taxInfo = taxInfo;
-//    }
 
     public double getPreTaxPrice() {
         return preTaxPrice;
@@ -109,11 +97,35 @@ public class Order {
         this.finalPriceCharged = finalPriceCharged;
     }
 
-//    public OrderType getOrderType() {
-//        return orderType;
-//    }
-//
-//    public void setOrderType(OrderType orderType) {
-//        this.orderType = orderType;
-//    }
+    public long getOrderItemsId() {
+        return orderItemsId;
+    }
+
+    public void setOrderItemsId(long orderItemsId) {
+        this.orderItemsId = orderItemsId;
+    }
+
+    public long getShowId() {
+        return showId;
+    }
+
+    public void setShowId(long showId) {
+        this.showId = showId;
+    }
+
+    public long getTaxInfoId() {
+        return taxInfoId;
+    }
+
+    public void setTaxInfoId(long taxInfoId) {
+        this.taxInfoId = taxInfoId;
+    }
+
+    public String getOrderTypeName() {
+        return orderTypeName;
+    }
+
+    public void setOrderTypeName(String orderTypeName) {
+        this.orderTypeName = orderTypeName;
+    }
 }
