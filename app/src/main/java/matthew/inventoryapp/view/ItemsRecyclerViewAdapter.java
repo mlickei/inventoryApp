@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -25,7 +24,6 @@ public class ItemsRecyclerViewAdapter extends RecyclerView.Adapter<ItemsRecycler
         public TextView nameView;
         public TextView searchIdView;
         public TextView sellPriceView;
-        public Button editButton;
 
         public ViewHolder(View view) {
             super(view);
@@ -33,7 +31,15 @@ public class ItemsRecyclerViewAdapter extends RecyclerView.Adapter<ItemsRecycler
             nameView = itemView.findViewById(R.id.nameView);
             searchIdView = itemView.findViewById(R.id.searchIdView);
             sellPriceView = itemView.findViewById(R.id.sellPriceView);
-            editButton = itemView.findViewById(R.id.editItemButton);
+
+            view.setClickable(true);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO open item view
+                }
+            });
         }
     }
 
@@ -53,7 +59,7 @@ public class ItemsRecyclerViewAdapter extends RecyclerView.Adapter<ItemsRecycler
         Item item = items.get(position);
 
         holder.nameView.setText(item.getName());
-        holder.searchIdView.setText(item.getSearchId());
+        holder.searchIdView.setText("#" + item.getSearchId());
         holder.sellPriceView.setText("$" + item.getSellPrice());
 
         //TODO implement view button
