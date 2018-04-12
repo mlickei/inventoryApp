@@ -23,6 +23,15 @@
             android:name=".DELETEACTIVITY"
             android:label="@string/title_activity_deleteactivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.EditItemView"
+            android:label="@string/title_activity_edit_item_view"
+            android:parentActivityName=".activity.AddItemsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="matthew.inventoryapp.activity.AddItemsActivity" />
+        </activity>
     </application>
 
 </manifest>
