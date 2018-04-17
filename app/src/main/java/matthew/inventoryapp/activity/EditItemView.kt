@@ -1,5 +1,6 @@
 package matthew.inventoryapp.activity
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -11,23 +12,43 @@ import matthew.inventoryapp.R
 import matthew.inventoryapp.intent.AddItemsActivityIntent
 import matthew.inventoryapp.intent.EditItemViewIntent
 import matthew.inventoryapp.item.Item
-import matthew.inventoryapp.item.ItemViewModel
+import matthew.inventoryapp.item.ItemsViewModel
 
 class EditItemView : AppCompatActivity() {
 
     private var intentType: String = ""
-    lateinit var itemViewModel: ItemViewModel
+    lateinit var itemsViewModel: ItemsViewModel
+    lateinit var item: Item
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_item_view)
         setSupportActionBar(toolbar)
 
+        itemsViewModel = ViewModelProviders.of(this).get(ItemsViewModel::class.java)
+
         intentType = intent.extras[EditItemViewIntent.INTENT_TYPE] as String
-        itemViewModel = ViewModelProviders.of(this).get(ItemViewModel::class.java)
+        val itemId: Any? = intent.extras[EditItemViewIntent.ITEM_ID]
 
         val editItemScroll = findViewById<View>(R.id.editItemScroll)
-        setupButtonEvents(intentType, editItemScroll)
+
+        if(itemId != null) {
+            itemsViewModel.items.observe(this, Observer { items ->
+                if(items!!.size > 0) {
+                    var itemsFound: List<Item> = items.filter { item -> item.id == itemId }
+                    if(itemsFound.size > 0) {
+                        var itemFound:Item = itemsFound.get(0)
+                            item = itemFound
+                            setViewValuesFromItem(editItemScroll, item)
+                    } else {
+                        //Do nothing, we're leaving this view anyways
+                    }
+                    setupButtonEvents(intentType, editItemScroll)
+                }
+            })
+        } else {
+            setupButtonEvents(intentType, editItemScroll)
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -42,7 +63,7 @@ class EditItemView : AppCompatActivity() {
         } else {
             discardButton.text = "Delete"
             discardButton.setOnClickListener {
-                //TODO delete item
+                itemsViewModel.deleteItems(item)
                 startActivity(AddItemsActivityIntent.createAddItemsActivity(this))
             }
         }
@@ -51,19 +72,25 @@ class EditItemView : AppCompatActivity() {
             saveBtn.text = "Create"
             saveBtn.setOnClickListener {
                 val item:Item = getItemValuesFromView(editItemView, null)
-                itemViewModel.insertItems(item)
+                itemsViewModel.insertItems(item)
                 startActivity(AddItemsActivityIntent.createAddItemsActivity(this))
             }
         } else {
             saveBtn.setOnClickListener {
-                val item:Item = getItemValuesFromView(editItemView, null)
-                itemViewModel.insertItems(item)
+                val item:Item = getItemValuesFromView(editItemView, item)
+                itemsViewModel.updateItems(item)
                 startActivity(AddItemsActivityIntent.createAddItemsActivity(this))
             }
         }
     }
 
-    fun getItemValuesFromView(view:View, item:Item?):Item {
+    private fun setViewValuesFromItem(view:View, item:Item) {
+        view.findViewById<EditText>(R.id.searchIdInput).setText(item.searchId)
+        view.findViewById<EditText>(R.id.nameInpute).setText(item.name)
+        view.findViewById<EditText>(R.id.sellPriceInput).setText(item.sellPrice.toString())
+    }
+
+    private fun getItemValuesFromView(view:View, item:Item?):Item {
         //If item null, make new one
         var updateItem:Item = item?:Item()
 

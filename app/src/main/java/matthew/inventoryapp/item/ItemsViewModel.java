@@ -14,12 +14,12 @@ import matthew.inventoryapp.database.AppDatabase;
  * Created by Matthew on 4/9/2018.
  */
 
-public class ItemViewModel extends AndroidViewModel {
+public class ItemsViewModel extends AndroidViewModel {
 
     private LiveData<List<Item>> items;
     private AppDatabase appDatabase;
 
-    public ItemViewModel(Application application) {
+    public ItemsViewModel(Application application) {
         super(application);
 
         appDatabase = Room.databaseBuilder(this.getApplication().getApplicationContext(), AppDatabase.class, AppDatabase.DATABASE_NAME).build();
