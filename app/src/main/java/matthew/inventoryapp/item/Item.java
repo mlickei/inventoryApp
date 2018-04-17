@@ -12,7 +12,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "item")
 public class Item {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
 
     @ColumnInfo(name="search_id")

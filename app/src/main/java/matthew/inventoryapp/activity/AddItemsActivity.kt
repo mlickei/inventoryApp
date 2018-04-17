@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_add_items.*
 import matthew.inventoryapp.R
+import matthew.inventoryapp.intent.EditItemViewIntent
 import matthew.inventoryapp.item.Item
 import matthew.inventoryapp.item.ItemViewModel
 import matthew.inventoryapp.view.ItemsRecyclerViewAdapter
@@ -30,8 +31,7 @@ class AddItemsActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         addItem.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            startActivity(EditItemViewIntent.createNewEditItemViewIntent(this))
         }
 
         //Get Listing View Content Container
