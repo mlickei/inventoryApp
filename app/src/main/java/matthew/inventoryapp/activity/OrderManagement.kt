@@ -1,76 +1,37 @@
 package matthew.inventoryapp.activity
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBar
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import kotlinx.android.synthetic.main.activity_add_items.*
 import kotlinx.android.synthetic.main.activity_navigation_drawer.*
 import matthew.inventoryapp.R
+
+import kotlinx.android.synthetic.main.activity_order_management.*
 import matthew.inventoryapp.intent.AddItemsActivityIntent
-import matthew.inventoryapp.intent.EditItemViewIntent
 import matthew.inventoryapp.intent.ManageOrdersIntent
-import matthew.inventoryapp.item.Item
-import matthew.inventoryapp.item.ItemsViewModel
-import matthew.inventoryapp.view.ItemsRecyclerViewAdapter
 
-class AddItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    var items: ArrayList<Item> = ArrayList();
-    lateinit var itemsRecyclerView: RecyclerView
-    lateinit var itemsRecyclerViewAdapter: RecyclerView.Adapter<ItemsRecyclerViewAdapter.ViewHolder>
-    lateinit var itemsRecyclerViewLayoutManager: RecyclerView.LayoutManager
-    lateinit var itemsViewModel: ItemsViewModel
-    lateinit var drawerLayout: DrawerLayout
+class OrderManagement : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_items)
+        setContentView(R.layout.activity_order_management)
         setSupportActionBar(toolbar)
-        val actionBar: ActionBar? = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        addItem.setOnClickListener { view ->
-            startActivity(EditItemViewIntent.createNewEditItemViewIntent(this))
+        addOrder.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
         }
 
-        //Get Listing View Content Container
-        var listingViewContent: View = findViewById(R.id.itemsInclude)
-
-        //TODO hook into the content container search crap
-
-        //Get the Items List Recycler setup
-        itemsRecyclerViewLayoutManager = LinearLayoutManager(this)
-        itemsRecyclerViewAdapter = ItemsRecyclerViewAdapter(this, items)
-
-        itemsRecyclerView = listingViewContent.findViewById(R.id.itemsList)
-        itemsRecyclerView.layoutManager = itemsRecyclerViewLayoutManager
-        itemsRecyclerView.adapter = itemsRecyclerViewAdapter
-
-        itemsViewModel = ViewModelProviders.of(this).get(ItemsViewModel::class.java)
-        itemsViewModel.items.observe(this, Observer { items ->
-            this.items.clear()
-            if (items != null) {
-                this.items.addAll(items)
-            }
-
-            updateItemsListView()
-        })
-
         val drawerActivityView = (getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(R.layout.activity_navigation_drawer, null, false)
-        drawerLayout = drawerActivityView.findViewById<DrawerLayout>(R.id.main_drawer_layout)
+        val drawerLayout = drawerActivityView.findViewById<DrawerLayout>(R.id.main_drawer_layout)
         val navView = drawerActivityView.findViewById<NavigationView>(R.id.nav_view)
 
         val toggle = ActionBarDrawerToggle(
@@ -79,14 +40,6 @@ class AddItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
-    }
-
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -126,7 +79,4 @@ class AddItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         return true
     }
 
-    fun updateItemsListView() {
-       itemsRecyclerViewAdapter.notifyDataSetChanged()
-    }
 }
