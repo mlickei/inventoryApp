@@ -7,11 +7,12 @@ import android.support.v7.app.ActionBar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import kotlinx.android.synthetic.main.activity_add_items.*
+import kotlinx.android.synthetic.main.activity_order_management.*
 import matthew.inventoryapp.R
 import matthew.inventoryapp.order.Order
 import matthew.inventoryapp.order.OrderViewModel
 import matthew.inventoryapp.view.OrdersRecylerViewAdapter
+import org.jetbrains.annotations.Nullable
 
 class OrderManagement : BaseActivity() {
 
@@ -25,11 +26,12 @@ class OrderManagement : BaseActivity() {
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        addItem.setOnClickListener { view ->
+        addOrder.setOnClickListener { view ->
             //TODO
         }
 
         setupRecyclerView()
+        setupOrdersViewModel()
     }
 
     private fun setupRecyclerView() {
@@ -47,11 +49,11 @@ class OrderManagement : BaseActivity() {
     private fun setupOrdersViewModel() {
         var ordersViewModel: OrderViewModel = ViewModelProviders.of(this).get(OrderViewModel::class.java)
         ordersViewModel.orders.observe(this, Observer { orders ->
-
+            handleOrdersListUpdate(orders as List<Order>)
         })
     }
 
-    private fun handleOrdersListUpdate(orders:List<Order>) {
+    private fun handleOrdersListUpdate(@Nullable orders:List<Order>) {
         this.orders.clear()
 
         if(orders != null) {
