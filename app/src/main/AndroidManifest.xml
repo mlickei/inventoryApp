@@ -37,6 +37,15 @@
             android:label="@string/title_activity_order_management"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".activity.EditOrderView"
+            android:label="@string/title_activity_edit_order_view"
+            android:parentActivityName=".activity.OrderManagement"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="matthew.inventoryapp.activity.OrderManagement" />
+        </activity>
+        <activity
             android:name=".activity.NavigationDrawer"
             android:label="@string/title_activity_navigation_drawer"
             android:theme="@style/AppTheme.NoActionBar"></activity>

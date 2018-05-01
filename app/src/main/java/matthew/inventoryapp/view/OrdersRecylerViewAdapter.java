@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import matthew.inventoryapp.R;
+import matthew.inventoryapp.intent.EditOrderViewIntent;
 import matthew.inventoryapp.order.Order;
 
 /**
@@ -92,9 +93,12 @@ public class OrdersRecylerViewAdapter extends RecyclerView.Adapter<OrdersRecyler
         holder.getOrderIdView().setText("#" + order.getId());
         holder.getOrderDateView().setText(dateFormat.format(order.getDate()));
         holder.getOrderTotalView().setText("$" + order.getFinalPriceCharged());
-//        holder.getDetailsButton().setOnClickListener((v) -> {
-//            context.startActivity();
-//        });
+        holder.getDetailsButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(EditOrderViewIntent.createEditOrderViewIntent(context, order.getId()));
+            }
+        });
     }
 
     @Override

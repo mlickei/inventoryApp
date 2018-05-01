@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.activity_order_management.*
 import matthew.inventoryapp.R
+import matthew.inventoryapp.intent.EditOrderViewIntent
 import matthew.inventoryapp.order.Order
 import matthew.inventoryapp.order.OrderViewModel
 import matthew.inventoryapp.view.OrdersRecylerViewAdapter
@@ -27,7 +28,7 @@ class OrderManagement : BaseActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         addOrder.setOnClickListener { view ->
-            //TODO
+            startActivity(EditOrderViewIntent.createNewEditOrderViewIntent(this))
         }
 
         setupRecyclerView()
