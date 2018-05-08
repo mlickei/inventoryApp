@@ -9,7 +9,7 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
-import matthew.inventoryapp.order.OrderItems;
+import matthew.inventoryapp.order.OrderItem;
 
 /**
  * Created by Matthew on 4/9/2018.
@@ -17,16 +17,16 @@ import matthew.inventoryapp.order.OrderItems;
 @Dao
 public interface OrderItemsDAO {
 
-    @Query("SELECT * FROM order_items")
-    LiveData<List<OrderItems>> getAllOrderItems();
+    @Query("SELECT * FROM order_item")
+    LiveData<List<OrderItem>> getAllOrderItems();
 
     @Insert
-    void insertOrderItems(OrderItems... orderItems);
+    void insertOrderItems(OrderItem... orderItems);
 
     @Update
-    void updateOrderItems(OrderItems... orderItems);
+    void updateOrderItems(OrderItem... orderItems);
 
     @Delete
-    void deleteOrderItems(OrderItems... orderItem);
+    void deleteOrderItems(OrderItem... orderItem);
 
 }

@@ -7,8 +7,8 @@ import android.arch.persistence.room.PrimaryKey;
 /**
  * Created by Matthew on 4/9/2018.
  */
-@Entity(tableName = "order_items")
-public class OrderItems {
+@Entity(tableName = "order_item")
+public class OrderItem {
 
     @PrimaryKey
     private long id;

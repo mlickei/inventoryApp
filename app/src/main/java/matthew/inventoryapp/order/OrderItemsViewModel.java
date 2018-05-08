@@ -16,7 +16,7 @@ import matthew.inventoryapp.database.AppDatabase;
 
 public class OrderItemsViewModel extends AndroidViewModel {
 
-    private LiveData<List<OrderItems>> orderItems;
+    private LiveData<List<OrderItem>> orderItems;
     private AppDatabase appDatabase;
 
     public OrderItemsViewModel(Application application) {
@@ -26,15 +26,15 @@ public class OrderItemsViewModel extends AndroidViewModel {
         orderItems = appDatabase.orderItemsDAO().getAllOrderItems();
     }
 
-    public LiveData<List<OrderItems>> getItems() {
+    public LiveData<List<OrderItem>> getItems() {
         return orderItems;
     }
 
-    public void insertOrderItems(OrderItems... orderItems) {
+    public void insertOrderItems(OrderItem... orderItems) {
         new AddAsyncTask(appDatabase).execute(orderItems);
     }
 
-    private static class AddAsyncTask extends AsyncTask<OrderItems, Void, Void> {
+    private static class AddAsyncTask extends AsyncTask<OrderItem, Void, Void> {
 
         private AppDatabase appDatabase;
 
@@ -43,17 +43,17 @@ public class OrderItemsViewModel extends AndroidViewModel {
         }
 
         @Override
-        protected Void doInBackground(OrderItems... orderItems) {
+        protected Void doInBackground(OrderItem... orderItems) {
             appDatabase.orderItemsDAO().insertOrderItems(orderItems);
             return null;
         }
     }
 
-    public void updateOrderItems(OrderItems... orderItems) {
+    public void updateOrderItems(OrderItem... orderItems) {
         new UpdateAsyncTask(appDatabase).execute(orderItems);
     }
 
-    private static class UpdateAsyncTask extends AsyncTask<OrderItems, Void, Void> {
+    private static class UpdateAsyncTask extends AsyncTask<OrderItem, Void, Void> {
 
         private AppDatabase appDatabase;
 
@@ -62,17 +62,17 @@ public class OrderItemsViewModel extends AndroidViewModel {
         }
 
         @Override
-        protected Void doInBackground(OrderItems... orderItems) {
+        protected Void doInBackground(OrderItem... orderItems) {
             appDatabase.orderItemsDAO().updateOrderItems(orderItems);
             return null;
         }
     }
 
-    public void deleteOrderItems(OrderItems... orderItems) {
+    public void deleteOrderItems(OrderItem... orderItems) {
         new DeleteAsyncTask(appDatabase).execute(orderItems);
     }
 
-    private static class DeleteAsyncTask extends AsyncTask<OrderItems, Void, Void> {
+    private static class DeleteAsyncTask extends AsyncTask<OrderItem, Void, Void> {
 
         private AppDatabase appDatabase;
 
@@ -81,7 +81,7 @@ public class OrderItemsViewModel extends AndroidViewModel {
         }
 
         @Override
-        protected Void doInBackground(OrderItems... orderItems) {
+        protected Void doInBackground(OrderItem... orderItems) {
             appDatabase.orderItemsDAO().deleteOrderItems(orderItems);
             return null;
         }
